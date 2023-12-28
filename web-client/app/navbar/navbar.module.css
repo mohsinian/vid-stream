@@ -1,0 +1,14 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: beige;
+    height: 90px;
+}
+
+.logo{
+    margin-top: 3px;
+    margin-left: -20px;
+    align-items: center;
+    justify-content: center;
+}
