@@ -35,7 +35,7 @@ export const generateUploadUrl = onCall(
     const data = request.data;
     const bucket = storage.bucket(rawVideoBucket);
 
-    const filename = `${auth.uid}-${Date.now()}-${data.fileExtension}`;
+    const filename = `${auth.uid}-${Date.now()}.${data.fileExtension}`;
     const [url] = await bucket.file(filename).getSignedUrl({
       action: "write",
       expires: Date.now() + 2 * 60 * 1000,
