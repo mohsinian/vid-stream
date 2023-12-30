@@ -44,6 +44,6 @@ app.post("/process-video",async(req,res)=>{
 
 const port = process.env.PORT || 3000;
 app.listen(port,()=>{
-    console.log("vid listening to port 3000 at http://localhost:"+port);
+    console.log(`vid listening to http://localhost:${port}`);
 })
 
