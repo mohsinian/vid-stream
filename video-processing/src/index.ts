@@ -40,11 +40,12 @@ app.post("/process-video",async(req,res)=>{
     await downloadRaw(inputFileName);
     try {
         await convertVideo(inputFileName, outputFileName);}
-    catch {
+    catch (error) {
             await Promise.all([
                 deleteRawVideo(inputFileName),
                 deleteProcessedVideo(outputFileName)
             ]);
+            console.error(error);
             return res.status(500).send('processing failed');
         }
     await uploadProcessed(outputFileName);
@@ -66,4 +67,3 @@ const port = process.env.PORT || 3000;
 app.listen(port,()=>{
     console.log(`vid listening to http://localhost:${port}`);
 })
-
