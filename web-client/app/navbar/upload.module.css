@@ -1,6 +1,14 @@
 .fileInput{
     display: flex;
-    color: aqua;
-    border-radius: 1px;
-    border-style: dashed;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30%;
+    height: 50px;
+    width: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+.inputnone{
+    display: none;
 }
