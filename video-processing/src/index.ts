@@ -1,6 +1,7 @@
 import express from "express";
 import Ffmpeg from "fluent-ffmpeg";
 import { convertVideo, downloadRaw, uploadProcessed, setupDirectories, deleteRawVideo, deleteProcessedVideo} from "./storage";
+import { isVideoNew, setVideo } from "./firestore";
 
 setupDirectories();
 
@@ -22,6 +23,20 @@ app.post("/process-video",async(req,res)=>{
     }
     const inputFileName = data.name;
     const outputFileName = `processed-${inputFileName}`;
+    const videoId = inputFileName.split('.')[0];
+
+    if(!isVideoNew(videoId))
+    {
+        return res.status(400).send('video already processed or processing');
+    }
+    else {
+        await setVideo(videoId,{
+            id: videoId,
+            status: 'processing',
+            uid: videoId.split('-')[0]
+
+        })
+    }
     await downloadRaw(inputFileName);
     try {
         await convertVideo(inputFileName, outputFileName);}
@@ -34,6 +49,11 @@ app.post("/process-video",async(req,res)=>{
         }
     await uploadProcessed(outputFileName);
     
+    await setVideo(videoId,{
+        status: 'processed',
+        filename: outputFileName
+    });
+
     await Promise.all([
         await deleteRawVideo(inputFileName),
         await deleteProcessedVideo(outputFileName)
