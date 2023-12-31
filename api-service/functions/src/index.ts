@@ -9,6 +9,17 @@ const storage = new Storage();
 initializeApp();
 const firestore = new Firestore();
 const rawVideoBucket = "mohsin-raw-video";
+const videoCollection = "videos";
+
+export interface Video {
+    id?: string,
+    uid?: string,
+    filename?: string,
+    status?: "processing" | "processed",
+    title?: string,
+    description?: string,
+}
+
 export const createUser = functions.auth.user().onCreate((user) => {
   const userInfo = {
     uid: user.uid,
@@ -44,3 +55,10 @@ export const generateUploadUrl = onCall(
     return {url, filename};
   }
 );
+
+export const getVideos = onCall({maxInstances: 1}, async () => {
+  const snapshot = await firestore.collection(videoCollection).
+    limit(10).get();
+  return snapshot.docs.map((doc) => doc.data());
+});
+
