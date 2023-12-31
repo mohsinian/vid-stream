@@ -11,7 +11,7 @@ export default async function Home() {
     <main className={styles.main}>
       {
         (videos).map((video) => (
-          <Link key={video.id} href={`/pages/watch?v=${video.filename}`}>
+          <Link key={video.id} href={`/watch?v=${video.filename}`}>
             <Image
               src={'/Tahsin.png'}
               alt='video'
