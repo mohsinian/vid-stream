@@ -1,6 +1,6 @@
 website live at https://tahsin-streams-jwfmrgfltq-as.a.run.app
 
-1. Express in the backend for video processing service and NextJS in the front end. Both are being served from the google cloud run(two separate services).
+1. Express in the backend for video processing service video being converted to 360p with Ffmpeg and NextJS in the front end. Both are being served from the google cloud run(two separate services).
 
 2. Firebase cloud functions as APIs, firebase auth for user authentication and goole sign in and Firestore used for storing video metadata and user data.
 
